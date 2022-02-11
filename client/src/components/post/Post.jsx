@@ -1,28 +1,26 @@
-import "./post.css"
-export default function Post() {
+import "./post.css";
+import { Link } from "react-router-dom";
+
+export default function Post({ post }) {
+  const PF = "http://localhost:5000/images/";
   return (
-    <div className="post"> 
-        <img className="postImg" src="https://images.pexels.com/photos/1407325/pexels-photo-1407325.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""
-         />
- <div className="postInfo">
-    <div className="postCats">
-        <span className="postCat">Music</span>
-        <span className="postCat">Life</span>
-    </div>
-        <span className="postTitle">
-        Dan Joe, being a big knowledge seeker 
+    <div className="post">
+      {post.photo && <img className="postImg" src={PF + post.photo} alt="" />}
+      <div className="postInfo">
+        <div className="postCats">
+          {post.categories.map((c) => (
+            <span className="postCat">{c.name}</span>
+          ))}
+        </div>
+        <Link to={`/post/${post._id}`} className="link">
+          <span className="postTitle">{post.title}</span>
+        </Link>
+        <hr />
+        <span className="postDate">
+          {new Date(post.createdAt).toDateString()}
         </span>
-         <hr/>
-         <span className="postDate">1 Hour Ago</span>
+      </div>
+      <p className="postDesc">{post.desc}</p>
     </div>
-    <p className="postDesc"> Dan Joe, being a big knowledge seeker and a graphic designer has got a stunning
-            About me page that immediately shows if he is ready for the new projects including web & print design, as well as brandingDan Joe, being a big knowledge seeker and a graphic designer has got a stunning
-            About me page that immediately shows if he is ready for the new projects including web & print design, as well as brandingDan Joe, being a big knowledge seeker and a graphic designer has got a stunning
-            About me page that immediately shows if he is ready for the new projects including web & print design, as well as branding</p>
-
-
-   
-    </div>
-  )
+  );
 }
-
